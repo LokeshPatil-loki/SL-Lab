@@ -6,29 +6,25 @@ import java.util.ArrayList;
 
 public class RSA {
     public static void main(String[] args) {
-        int p = 7, q = 11;
+        int p = 3, q = 11;
         int n = p*q;
         int z = (p-1)*(q-1);
+
+        int msg = 12;
 
         int e = computeE(z);
         int d = computeD(z,e);
 
-        System.out.println("The value of d: " + d);
-        System.out.printf("Public key (n,e): (%d,%d)\n",n,e);
-        System.out.printf("Private key (d): (%d)\n",d);
-
-//        Encrypt
-        String text = "9";
-        int m = 9;
-        for(int i=0;i<text.length();i++){
-            m += (int)text.charAt(i);
-        }
-        double c = ((Math.pow(m,e)) % n);
-        System.out.println("Encrypted Message: " + c);
+        double c = Math.pow(msg,e) % n;
+        System.out.println("Encrypted Text: " + c);
 
         BigInteger N = BigInteger.valueOf(n);
+
+        // converting float value of c to BigInteger
         BigInteger C = BigDecimal.valueOf(c).toBigInteger();
-        System.out.println("Decrypted Message: " + (C.pow(d)).mod(N));
+        BigInteger msgback = (C.pow(d)).mod(N);
+        System.out.println("Decrypted message is : "
+                + msgback);
     }
 
 
