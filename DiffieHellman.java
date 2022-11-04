@@ -1,4 +1,4 @@
-public class DF {
+public class DiffieHellman {
     private static long power(long a, long b, long p) {
         if (b == 1)
             return a;
